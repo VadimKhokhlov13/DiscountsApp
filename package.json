@@ -1,0 +1,17 @@
+{
+  "name": "discountsapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index",
+    "lamoda": "nodemon parsers/lamoda/index"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "needle": "^2.5.2",
+    "nodemon": "^2.0.6"
+  }
+}
