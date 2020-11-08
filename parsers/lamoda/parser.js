@@ -7,11 +7,21 @@ function getPagesCount(html) {
 }
 
 function parseHtml(html) {
+
     let obj = [];
     const $ = cheerio.load(html);
     let blocks = $('.products-list-item');
+
     blocks.each(function(index) {
-        let gallery = $(this).data('gallery').map(link => link.replace('//', ''));
+        let alt = 'qwerty';
+        if (index < 4) {
+            alt = $(this).find('.products-list-item__img').attr('alt');
+        } else {
+            alt = $(this).find('.products-list-item_labels').children().eq(2).data('img');
+        }
+        let brand = alt.split(',')[1].trim();
+        let color = alt.slice(alt.indexOf(':')+2, alt.indexOf('.'));
+        let modelName = $(this).find('.products-list-item__type').text().replace(/\n/g, '').trim();
         let oldPrice = $(this).data('price');
         let newPrice = parseInt($(this).find('.js-cd-discount').text().split(' ').join(''));
         let sizesHtml = $(this).find('a.products-list-item__size-item');
@@ -19,14 +29,14 @@ function parseHtml(html) {
         sizesHtml.each(function(index) {
             sizes.push($(this).html());
         })
+        let gallery = $(this).data('gallery').map(link => link.replace('//', ''));
         let mainLink = `https://www.lamoda.ru${$(this).find('a.products-list-item__link').attr('href')}`;
-        // let alt = $(this).find('img').attr('alt').split(',');
-        // let brend = alt[1];
-        // let color = alt[2].replace('цвет: ', '');
-        // color = color.split('.')[0];
+
         let info = {
-            // brend,
-            // color,
+            alt,
+            brand,
+            color,
+            modelName,
             oldPrice,
             newPrice,
             sizes,
@@ -35,7 +45,11 @@ function parseHtml(html) {
         }
         obj.push(info);
     })
-    console.log(obj.length);
+    console.log(obj);
+    // for (let i = 0; i < 5; i++) {
+    //     console.log(obj[i]);
+    // }
+    
 }
 
 module.exports = { getPagesCount, parseHtml }

@@ -14,7 +14,7 @@ function getHtml(link) {
 
 async function getPagesInfo() {
     let firstPageHtml = await getHtml(`${baseLink}1`);
-    let pagesCount = getPagesCount(firstPageHtml);
+    let pagesCount = 1; //getPagesCount(firstPageHtml);
     for (let i = 1; i <= pagesCount; i++) {
         let html = await getHtml(`${baseLink}${i}`);
         let info = parseHtml(html);
