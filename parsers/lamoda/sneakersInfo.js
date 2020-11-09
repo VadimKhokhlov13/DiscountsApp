@@ -1,5 +1,6 @@
 const needle = require('needle');
 const { getPagesCount, parseHtml } = require('./parser');
+const { saveDBSneakers } = require('./dbSneakers');
 
 const baseLink = 'https://www.lamoda.ru/c/5971/shoes-muzhkrossovki/?display_locations=outlet&is_sale=1&page=';
 
@@ -17,10 +18,12 @@ async function getPagesInfo() {
     let pagesCount = 1; //getPagesCount(firstPageHtml);
     for (let i = 1; i <= pagesCount; i++) {
         let html = await getHtml(`${baseLink}${i}`);
-        let info = parseHtml(html);
+        let sneakers = parseHtml(html);
+        let saveResult = await saveDBSneakers(sneakers);
     }
+    return 'ok';
 }
 
 getPagesInfo();
 
-module.exports = { getHtml }
+module.exports = { getPagesInfo }

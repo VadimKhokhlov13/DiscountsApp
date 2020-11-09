@@ -8,48 +8,41 @@ function getPagesCount(html) {
 
 function parseHtml(html) {
 
-    let obj = [];
     const $ = cheerio.load(html);
+    let sneakers = [];
     let blocks = $('.products-list-item');
-
     blocks.each(function(index) {
-        let alt = 'qwerty';
+        let alt = '';
         if (index < 4) {
             alt = $(this).find('.products-list-item__img').attr('alt');
         } else {
             alt = $(this).find('.products-list-item_labels').children().eq(2).data('img');
         }
         let brand = alt.split(',')[1].trim();
-        let color = alt.slice(alt.indexOf(':')+2, alt.indexOf('.'));
-        let modelName = $(this).find('.products-list-item__type').text().replace(/\n/g, '').trim();
+        let color = alt.slice(alt.indexOf(':') + 2, alt.indexOf('.'));
         let oldPrice = $(this).data('price');
         let newPrice = parseInt($(this).find('.js-cd-discount').text().split(' ').join(''));
         let sizesHtml = $(this).find('a.products-list-item__size-item');
         let sizes = [];
-        sizesHtml.each(function(index) {
-            sizes.push($(this).html());
+        sizesHtml.each(function() {
+            sizes.push(parseFloat($(this).html().replace(',', '.')));
         })
         let gallery = $(this).data('gallery').map(link => link.replace('//', ''));
         let mainLink = `https://www.lamoda.ru${$(this).find('a.products-list-item__link').attr('href')}`;
 
-        let info = {
-            alt,
+        let sneaker = {
             brand,
             color,
-            modelName,
             oldPrice,
             newPrice,
             sizes,
             gallery,
             mainLink
         }
-        obj.push(info);
+        sneakers.push(sneaker);
     })
-    console.log(obj);
-    // for (let i = 0; i < 5; i++) {
-    //     console.log(obj[i]);
-    // }
     
+    return sneakers;
 }
 
 module.exports = { getPagesCount, parseHtml }

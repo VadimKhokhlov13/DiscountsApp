@@ -5,14 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index",
+    "index": "node parsers/lamoda/index",
     "lamoda": "nodemon parsers/lamoda/cron",
-    "parser": "nodemon parsers/lamoda/html"
+    "parser": "nodemon parsers/lamoda/sneakersInfo"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.1",
+    "mongoose": "^5.10.13",
     "needle": "^2.5.2",
     "node-cron": "^2.0.3",
     "nodemon": "^2.0.6"
