@@ -18,8 +18,8 @@ function parseHtml(html) {
         } else {
             alt = $(this).find('.products-list-item_labels').children().eq(2).data('img');
         }
-        let brand = alt.split(',')[1].trim();
-        let color = alt.slice(alt.indexOf(':') + 2, alt.indexOf('.'));
+        let brand = alt.slice(alt.indexOf('Кроссовки, ')+11, alt.indexOf(', цвет'));
+        let color = alt.slice(alt.indexOf('цвет: ')+6, alt.indexOf('. Артикул'));
         let oldPrice = $(this).data('price');
         let newPrice = parseInt($(this).find('.js-cd-discount').text().split(' ').join(''));
         let sizesHtml = $(this).find('a.products-list-item__size-item');
@@ -41,7 +41,7 @@ function parseHtml(html) {
         }
         sneakers.push(sneaker);
     })
-    
+    console.log(sneakers);
     return sneakers;
 }
 

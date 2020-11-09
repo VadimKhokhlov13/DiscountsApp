@@ -2,7 +2,7 @@ const needle = require('needle');
 const { getPagesCount, parseHtml } = require('./parser');
 const { saveDBSneakers } = require('./dbSneakers');
 
-const baseLink = 'https://www.lamoda.ru/c/5971/shoes-muzhkrossovki/?display_locations=outlet&is_sale=1&page=';
+const baseLink = 'https://www.lamoda.ru/c/5971/shoes-muzhkrossovki/?display_locations=outlet&is_sale=&page=1';
 
 function getHtml(link) {
     return new Promise(function (resolve) {
