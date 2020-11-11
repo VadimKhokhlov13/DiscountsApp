@@ -10,7 +10,10 @@ function parseHtml(html) {
 
     const $ = cheerio.load(html);
     let sneakers = [];
-    let blocks = $('.products-list-item');
+    let blocks = $('.products-list-item[data-gallery]');
+    if (blocks.length == 0) {
+        return false;
+    }
     blocks.each(function(index) {
         let alt = '';
         if (index < 4) {
@@ -19,8 +22,8 @@ function parseHtml(html) {
             alt = $(this).find('.products-list-item_labels').children().eq(2).data('img').slice(32, alt.indexOf(',')); //32 это длина '236 341 products-list-item__img'
         }
         let category = alt.slice(0, alt.indexOf(','));;
-        let brand = alt.slice(alt.indexOf(', ')+2, alt.indexOf(', цвет'));
-        let color = alt.slice(alt.indexOf('цвет: ')+6, alt.indexOf('. Артикул'));
+        let brand = alt.slice(alt.indexOf(', ') + 2, alt.indexOf(', цвет'));
+        let color = alt.slice(alt.indexOf('цвет: ') + 6, alt.indexOf('. Артикул'));
         let oldPrice = $(this).data('price');
         let newPrice = parseInt($(this).find('.js-cd-discount').text().split(' ').join(''));
         let sizesHtml = $(this).find('a.products-list-item__size-item');
@@ -43,7 +46,6 @@ function parseHtml(html) {
         }
         sneakers.push(sneaker);
     })
-    console.log(sneakers);
     return sneakers;
 }
 

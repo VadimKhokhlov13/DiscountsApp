@@ -1,8 +1,8 @@
 const needle = require('needle');
-const { getPagesCount, parseHtml } = require('./parser');
+const { parseHtml } = require('./parser');
 const { saveDBSneakers } = require('./dbSneakers');
 
-const baseLink = 'https://www.lamoda.ru/c/2981/shoes-krossovk-kedy-muzhskie/?display_locations=outlet&is_sale=1&page=1';
+const baseLink = 'https://www.lamoda.ru/c/2981/shoes-krossovk-kedy-muzhskie/?display_locations=outlet&is_sale=1&page=';
 
 function getHtml(link) {
     return new Promise(function (resolve) {
@@ -14,14 +14,18 @@ function getHtml(link) {
 }
 
 async function getPagesInfo() {
-    let firstPageHtml = await getHtml(`${baseLink}1`);
-    let pagesCount = 1; //getPagesCount(firstPageHtml);
-    for (let i = 1; i <= pagesCount; i++) {
-        let html = await getHtml(`${baseLink}${i}`);
+    console.log('start');
+    let pageNumber = 1;
+    while(true) {
+        let html = await getHtml(`${baseLink}${pageNumber}`);
         let sneakers = parseHtml(html);
-        let saveResult = await saveDBSneakers(sneakers);
+        if (sneakers == false) {
+            break;
+        }
+        pageNumber++;
+        // await saveDBSneakers(sneakers);
     }
-    return 'ok';
+    console.log('finish');
 }
 
 getPagesInfo();

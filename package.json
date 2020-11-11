@@ -6,8 +6,8 @@
   "scripts": {
     "start": "nodemon index",
     "index": "node parsers/lamoda/index",
-    "lamoda": "nodemon parsers/lamoda/cron",
-    "parser": "nodemon parsers/lamoda/sneakersInfo"
+    "lamoda": "node parsers/lamoda/cron",
+    "parser": "node parsers/lamoda/sneakersInfo"
   },
   "author": "",
   "license": "ISC",
