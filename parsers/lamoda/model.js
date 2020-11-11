@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose')
 
 const schema = new Schema({
+    category: String,
     brand:  String,
     color:  String,
     oldPrice:  Number,

@@ -23,11 +23,9 @@ async function getPagesInfo() {
             break;
         }
         pageNumber++;
-        // await saveDBSneakers(sneakers);
+        await saveDBSneakers(sneakers);
     }
-    console.log('finish');
+    return 'finish';
 }
-
-getPagesInfo();
 
 module.exports = { getPagesInfo }

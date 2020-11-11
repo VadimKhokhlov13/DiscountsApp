@@ -2,7 +2,7 @@ const Sneakers = require('./model');
 
 async function saveDBSneakers(sneakers) {
     for (let i = 0; i < sneakers.length; i++) {
-        let res = await saveDBSneaker(sneakers[i]);
+        await saveDBSneaker(sneakers[i]);
     }
 }
 
