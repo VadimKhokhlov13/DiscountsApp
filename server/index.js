@@ -20,17 +20,17 @@ app.use(express.json());
 //     res.send(html);
 // });
 
-app.get('/getFirstSneakers', async (req, res) => {
-    
-    let collection = await getFirstSneakers();
-    res.send(collection);
-});
-
-app.get('/sneakers', async (req, res) => {
+app.get('/', async (req, res) => {
     
   const params = req.query;
   const sneakers = await getSneakers(params);
   res.send(sneakers);
+});
+
+app.get('/getFirstSneakers', async (req, res) => {
+    
+    let collection = await getFirstSneakers();
+    res.send(collection);
 });
 
 app.listen(port, () => {
